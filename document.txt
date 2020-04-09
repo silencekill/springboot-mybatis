@@ -1,0 +1,28 @@
+springboot整合mybatis
+    1.添加mybatis依赖
+    2.创建dao层接口,将dao层接口注入到spring中并且指为dao层
+        两种方法:
+            1.在dao层接口上添加@Mapper注解,这样需要在每个接口上都添加此注解
+            2.在启动类上添加@MapperScan注解 @MapperScan(basePackages = "dao层包的路径")
+
+    3.创建mapper.xml文件
+         1.在dao层接口的包下创建xml文件
+            (1)此时需要在pom.xml文件中配置,在打包的时候将此xml文件也打入,否则在打包时不会将xml文件打入
+            <resources>
+                <resource>
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                    </includes>
+                </resource>
+                <resource>
+                    <directory>src/main/resources</directory>
+                </resource>
+            </resources>
+            (2)dao层接口名字要和xml文件的名字一致
+         2.在resources目录下创建xml文件
+             1.xml文件在resources下边,需要与dao层接口在相同的目录下,这样在打包的时候xml文件和对应的dao接口才会在一起
+             2.如果目录不相同,就需要指明xml文件的位置,在application.xml中添加配置 mybatis.mapper-locations=classpath:/mapper/*.xml
+
+
+springboot整合mybatis多数据源
